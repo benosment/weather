@@ -15,7 +15,20 @@ if __name__ == '__main__':
                                                          location.latitude,
                                                          location.longitude)
     response = requests.get(url).json()
-    print('Currently %s. %d degrees with %d chance of rain' %
+    print('Right now:\n  %s\n  %d\N{DEGREE SIGN} with %d%% of rain' %
           (response['currently']['summary'],
            response['currently']['temperature'],
            response['currently']['precipProbability']))
+    print('')
+    print('Today:')
+    print('  %s' % response['daily']['data'][0]['summary'])
+    # TODO -- need to convert UNIX timestamps to human readable
+    print('  Low of %d\N{DEGREE SIGN} at %d' %
+          (response['daily']['data'][0]['apparentTemperatureMin'],
+           response['daily']['data'][0]['apparentTemperatureMinTime']))
+    print('  High of %d\N{DEGREE SIGN} at %d' %
+          (response['daily']['data'][0]['apparentTemperatureMax'],
+           response['daily']['data'][0]['apparentTemperatureMaxTime']))
+    print('')
+    print('Next 7 days:')
+    print('  %s' % response['daily']['summary'])
