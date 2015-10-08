@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from geopy.geocoders import Nominatim
+from datetime import datetime
 import os
 import requests
 
@@ -22,13 +23,14 @@ if __name__ == '__main__':
     print('')
     print('Today:')
     print('  %s' % response['daily']['data'][0]['summary'])
-    # TODO -- need to convert UNIX timestamps to human readable
-    print('  Low of %d\N{DEGREE SIGN} at %d' %
+    min_time = datetime.fromtimestamp(response['daily']['data'][0]['apparentTemperatureMinTime'])
+    max_time = datetime.fromtimestamp(response['daily']['data'][0]['apparentTemperatureMaxTime'])
+    print('  Low of %d\N{DEGREE SIGN} at %s' %
           (response['daily']['data'][0]['apparentTemperatureMin'],
-           response['daily']['data'][0]['apparentTemperatureMinTime']))
-    print('  High of %d\N{DEGREE SIGN} at %d' %
+           min_time.strftime('%H:%M:%S')))
+    print('  High of %d\N{DEGREE SIGN} at %s' %
           (response['daily']['data'][0]['apparentTemperatureMax'],
-           response['daily']['data'][0]['apparentTemperatureMaxTime']))
+           max_time.strftime('%H:%M:%S')))
     print('')
     print('Next 7 days:')
     print('  %s' % response['daily']['summary'])
