@@ -12,7 +12,7 @@ if __name__ == '__main__':
                            location.latitude,
                            location.longitude))
     api_key = os.getenv('DARK_SKY_API', '')
-    url = 'https://api.forecast.io/forecast/%s/%s,%s' % (api_key,
+    url = 'https://api.darksky.net/forecast/%s/%s,%s' % (api_key,
                                                          location.latitude,
                                                          location.longitude)
     response = requests.get(url).json()
